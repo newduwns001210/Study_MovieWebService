@@ -1,9 +1,58 @@
-1. React JS 설치 방법
+1. ReactJS 설치 방법
 - JS의 react, react-dom 두 코드를 import 해야 함.
 - html script:src에 두 url 추가
     > react : https://unpkg.com/react@17.0.2/umd/react.production.min.js 
     > react-dom : https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js
-
+- react는 구동하는 엔진 같은 것.
+- react-dom은 React Element들을 html body에 둘 수 있도록 해줌.
 - 개발자 도구에서 React 타이핑으로 정상적으로 import 되었는지 확인.
 
- 
+**코드**
+```
+<!DOCTYPE html>
+<html>
+<body></body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+</html>
+```
+<br/>
+
+---
+<br/>
+
+2. ReactJS로 Element 생성 방법 (hard)
+- 실무 개발자들이 작업하는 방식이 아님.
+- easy.ver을 배우면 다시는 쓰지 않을 방식.
+- 여기서 ReactJS 파워의 핵심이 나오는데 js로 시작해 그 안에 html이 들어가고 끝나는 방식.
+
+**코드**
+```
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script>
+    const root = document.getElementById("root");
+    const span = React.createElement(
+        "span", 
+        {id:"sexy-span"}, 
+        "hello"
+        );
+    // element span에 property를 여기서 같이 생성할 수 있음. 예를 들어 class, id, content(내용)등
+    ReactDOM.render(span, root); 
+    // ReactDOM은 span을 어디에 둘 것인지 알려줘야 함. 우리는 root에 두기로 함.
+</script>
+</html> 
+```
+<br/>
+
+---
+<br/>
+
+3. React에서의 Events
+- 
+
