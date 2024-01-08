@@ -25,6 +25,7 @@
 - 실무 개발자들이 작업하는 방식이 아님.
 - easy.ver을 배우면 다시는 쓰지 않을 방식.
 - 여기서 ReactJS 파워의 핵심이 나오는데 js로 시작해 그 안에 html이 들어가고 끝나는 방식.
+- const btn = React.createElement("button", null, "Click me!")
 
 **코드**
 ```
@@ -54,5 +55,56 @@
 <br/>
 
 3. React에서의 Events
-- 
+- {on + 사용할 eventListener : () => 사용할 함수} 이렇게 사용 (hard 버전에서만)
 
+<br/>
+
+**코드**
+```
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+<script>
+    const root = document.getElementById("root");
+    
+    const span = React.createElement(
+        "span", 
+        {
+        onMouseEnter : () => console.log("mouse enter"),
+        },
+        "hello"
+    );
+    // element span에 property를 여기서 같이 생성할 수 있음. 예를 들어 class, id, content(내용)등
+    
+    const btn = React.createElement(
+        "button", 
+        {
+        id : "btn",
+        onClick : () => console.log("clicked"),
+        style : {
+            backgroundColor : "tomato"
+        }
+        },
+        "Click me!"
+    );
+    /*
+    <button id="btn">Click me</button>
+    const button = document.getElementById("btn");
+    const span = document.querySelector("span");
+    button.addEventListener("click", handleClick);
+    이 코드들을  한꺼번에 위처럼 표현이 가능함. ReactJS의 장점.
+    */
+
+    const div = React.createElement("div", null, [span, btn]);
+    // element들을 하나씩 DOM.render에 넣어도 되지만, 위처럼 배열을 사용하여 element들을 한꺼번에 넣을 수 있음.
+
+    ReactDOM.render(div, root); 
+    // ReactDOM은 span을 어디에 둘 것인지 알려줘야 함. 우리는 root에 두기로 함.
+</script>
+</html> 
+```
