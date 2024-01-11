@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <body>
     <div id="root"></div>
-</body>
-<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<script>
+  </body>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
     const root = document.getElementById("root");
-    
-    const span = React.createElement(
-        "span", 
+
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+        hello
+      </h3>
+    );
+
+    // 하지만 결국 브라우저가 이 JSX 코드를 읽을 수 있게 하려면 아래 주석 코드처럼 변환해줘야함
+    // 이것이 BABEL.
+    /*
+     const span = React.createElement(
+        "span",
         {
         onMouseEnter : () => console.log("mouse enter"),
         },
         "hello"
     );
-    // element span에 property를 여기서 같이 생성할 수 있음. 예를 들어 class, id, content(내용)등
-    
+    */
+
+    function Button() {
+      return (
+        <button
+          id="btn"
+          onClick={() => console.log("clicked")}
+          style={{ background: "tomato" }}
+        >
+          Click!
+        </button>
+      );
+    }
+    /*
     const btn = React.createElement(
-        "button", 
+        "button",
         {
         id : "btn",
         onClick : () => console.log("clicked"),
@@ -28,16 +51,16 @@
         },
         "Click me!"
     );
-    /*
-    <button id="btn">Click me</button>
-    const button = document.getElementById("btn");
-    const span = document.querySelector("span");
-    button.addEventListener("click", handleClick);
-    이 코드들을  한꺼번에 위처럼 표현이 가능함. ReactJS의 장점.
     */
-    const div = React.createElement("div", null, [span, btn]);
-    // element들을 하나씩 DOM.render에 넣어도 되지만, 위처럼 배열을 사용하여 element들을 한꺼번에 넣을 수 있음.
-    ReactDOM.render(div, root); 
-    // ReactDOM은 span을 어디에 둘 것인지 알려줘야 함. 우리는 root에 두기로 함.
-</script>
-</html> 
+
+    const Container = () => (
+      <div>
+        <Title /> {/* Title 컴포넌트를 복붙 한 것과 같음 */}
+        <Button />
+      </div>
+    );
+    // const div = React.createElement("div", null, [title, button]);
+
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>

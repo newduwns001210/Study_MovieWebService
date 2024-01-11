@@ -59,7 +59,13 @@
 
 <br/>
 
-**코드**
+**코드(hard ver.)**
+- const exam = React.createElement("root에 들어갈 HTML 태그(Element)", {props가 포함된 object}, "content")
+    > {props가 포함된 object} -> (style, id, class, ,event listener, props(placeholder 등) 등 변경 가능) / property가 될 수가 있고, 그 properties를 갖는 object가 될 수도 있음.
+- props로 event listener를 추가 할 수 있다는 너무나도 큰 장점을 가지고 있음. (React.js의 파워)
+
+<br/>
+
 ```
 <!DOCTYPE html>
 <html>
@@ -101,7 +107,7 @@
     */
 
     const div = React.createElement("div", null, [span, btn]);
-    // element들을 하나씩 DOM.render에 넣어도 되지만, 위처럼 배열을 사용하여 element들을 한꺼번에 넣을 수 있음.
+    // element들을 하나씩 DOM.render에 넣어도 되지만, 위처럼 배열을 사용하여 element들을 한꺼번에 render 가능.
 
     ReactDOM.render(div, root); 
     // ReactDOM은 span을 어디에 둘 것인지 알려줘야 함. 우리는 root에 두기로 함.
