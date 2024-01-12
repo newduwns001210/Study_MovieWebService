@@ -9,28 +9,26 @@
 
   <script type="text/babel">
     const root = document.getElementById("root");
-    let count = 0;
-    function countUp() {
-      count++;
-      render();
-      // count의 변화를 바로 리렌더링해줌.
-      // 하지만 여기서 문제는 버튼을 클릭 할 때마다 계속해서 리렌더링 된다는 것.
-    }
 
-    function render() {
-      ReactDOM.render(<Container />, root);
-      // Container 컴포넌트를 root에 담아주는 역할.
-    }
+    function App() {
+      const [count, setCount] = React.useState(0);
+      // 이것의 구조는 array => [data, data를 바꿔줄 function] / 나는 data의 초기값을 0으로 설정
+      // count = data의 초기값 / setCount = data를 변경하는 function
 
-    function Container() {
+      const click = () => {
+        setCount(count + 1);
+        // 직전의 코드를 보면 알듯이, 여기에 rendering 해주는 함수를 추가하는 건 시스템상 너무 비효율적임.
+        // useState의 data를 바꿔줄 function에선 리렌더링까지 함께 이루어지기 때문. 그래서 useState를 사용함.
+      };
+
       return (
         <div>
           <h3>클릭 수 : {count}</h3>
-          <button onClick={countUp}>Click!</button>
+          <button onClick={click}>Click!</button>
         </div>
       );
     }
 
-    render();
+    ReactDOM.render(<App />, root);
   </script>
 </html>
