@@ -55,44 +55,39 @@
     function DistanceConverter() {
       const [distance, setDistance] = React.useState(0);
       const [fliped, setFliped] = React.useState(false);
-
       const onChange = (event) => {
         setDistance(event.target.value);
       };
-
       const reset = () => setDistance(0);
-
       const flip = () => {
         reset();
-        setFliped((value) => !fliped);
+        setFliped((fliped) => !fliped);
       };
-
       return (
         <div>
           <div>
-            <label htmlFor="km">Km</label>
+            <label htmlFor="Km">Km</label>
             <input
               value={fliped ? distance * 1.609 : distance}
-              id="km"
-              placeholder="Km"
-              type="number"
               onChange={onChange}
+              id="Km"
+              type="number"
+              placeholder="Km"
               disabled={fliped}
             />
           </div>
 
           <div>
-            <label htmlFor="mile">Mile</label>
+            <label htmlFor="Mile">Mile</label>
             <input
               value={fliped ? distance : distance / 1.609}
-              id="mile"
-              placeholder="Mile"
-              type="number"
               onChange={onChange}
+              id="Mile"
+              type="number"
+              placeholder="Mile"
               disabled={!fliped}
             />
           </div>
-
           <button onClick={reset}>초기화</button>
           <button onClick={flip}>전환</button>
         </div>
@@ -100,10 +95,11 @@
     }
 
     function App() {
-      const [index, setIndex] = React.useState("0");
+      const [index, setIndex] = React.useState("1");
       // 디폴트(기본) 값으로 number 0이 아닌 string 0 을 넣어줌.
       const onSelect = (event) => {
         setIndex(event.target.value);
+        v;
       };
       return (
         <div>

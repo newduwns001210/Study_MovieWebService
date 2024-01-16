@@ -566,3 +566,8 @@ content
     root.render(<App />);
   </script>
 ```
+
+<br>
+<br>
+
+# 7. Props
