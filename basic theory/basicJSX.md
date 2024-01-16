@@ -129,10 +129,27 @@
 - 컴포넌트의 첫 글자는 무조건 대문자여야 함.
   > 소문자일 경우 React와 JSX는 HTML태그라고 읽을 것임.
 - 브라우저가 JSX를 이해할 수 있게 설치해줘야 함.(babel)
-  > <script src="//unpkg.com/@babel/standalone/babel.min.js"></script>
-  > <script type="text/babel">
-  >  {/* JSX 구문 내용 */} 
-  > </script>
+
+```
+<script src="//unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+{/* JSX 구문 내용 */}
+</script>
+```
+
+- version별 ReactDOM사용법
+
+```
+18 버전 React에서 쓰는 방식
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+```
+
+```
+17 버전 React에서 쓰는 방식
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+```
 
 </br>
 
@@ -359,3 +376,193 @@ content
 
   > 위의 2-1과 2-2 똑같이 현재의 state값으로 새로운 값을 계산하지만 이 방법이 더 안전함.  
   > 왜? => React에서 current가 확실한 현재의 값이라는 걸 보장하고 있기 때문
+
+ </br>
+
+**기초코드**
+
+```
+<script type="text/babel">
+    function App() {
+      const [count, setCount] = React.useState(0);
+
+      const click = () => {
+        setCount((asdasd) => asdasd + 1);
+      };
+
+      return (
+        <div>
+          <h3>클릭 수 : {count}</h3>
+          <button onClick={click}>Click!</button>
+        </div>
+      );
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+```
+
+</br>
+
+**Inputs and State (단위 변환 앱)**
+
+- 분->시간 / 시간->분 / km->mile / kg->pound
+- JS와 다른 JSX에서의 명령어 (production에서 말고 development에서)
+
+  > html의 속성으로 for / class 등을 htmlFor / className 등으로 기재해야 함.  
+  > 명령어가 바뀌어도 html이 읽어올 땐 html태그로 읽어옴.
+
+- hour input에는 값을 입력할 수 없음
+
+  > event listener가 없기 때문.
+  > disabled 속성을 추가하는 것으로 입력창 자체를 고정시켜버림.
+
+<br>
+
+**단위변환기(분/시간)**
+
+```
+ <script type="text/babel">
+    function App() {
+      const [time, setTime] = React.useState(0);
+      const [fliped, setFliped] = React.useState(false);
+
+      const onChange = (event) => {
+        setTime(event.target.value);
+      };
+      const reset = () => setTime(0);
+      const flip = () => {
+        reset();
+        setFliped((flip) => !flip); // "!"는 부정명제 true->false / false->true
+      };
+
+      return (
+        <div>
+          <h1 className="converter">Converter(단위변환기)</h1>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={fliped ? time * 60 : time}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={fliped}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={fliped ? time : time / 60}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={!fliped}
+              // disabled => 입력창을 고정시켜버려 값을 입력할 수 없음. (클릭도 안돰.)
+            />
+          </div>
+
+          <button onClick={reset}>초기화</button>
+          <button onClick={flip}>전환</button>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+```
+
+<br>
+
+**단위변환기(km/mile)**
+
+```
+<script type="text/babel">
+    function DistanceConverter() {
+      const [distance, setDistance] = React.useState(0);
+      const [fliped, setFliped] = React.useState(false);
+
+      const onChange = (event) => {
+        setDistance(event.target.value);
+      };
+
+      const reset = () => setDistance(0);
+
+      const flip = () => {
+        reset();
+        setFliped((value) => !fliped);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="km">Km</label>
+            <input
+              value={fliped ? distance * 1.609 : distance}
+              id="km"
+              placeholder="Km"
+              type="number"
+              onChange={onChange}
+              disabled={fliped}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="mile">Mile</label>
+            <input
+              value={fliped ? distance : distance / 1.609}
+              id="mile"
+              placeholder="Mile"
+              type="number"
+              onChange={onChange}
+              disabled={!fliped}
+            />
+          </div>
+
+          <button onClick={reset}>초기화</button>
+          <button onClick={flip}>전환</button>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+```
+
+<br>
+
+**원하는 단위변환기 선택**
+
+```
+<script type="text/babel">
+    function App() {
+      const [index, setIndex] = React.useState("0");
+      // 디폴트(기본) 값으로 number 0이 아닌 string 0 을 넣어줌.
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1>단위변환기</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Mile</option>
+          </select>
+          <hr />
+          {index === "0" ? <TimeConverter /> : null}
+          {index === "1" ? <DistanceConverter /> : null}
+          {/* {}중괄호 안에는 JS코드를 넣을 수 있음 */}
+          {/* index value에 따라서 UI가 변함 */}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+```

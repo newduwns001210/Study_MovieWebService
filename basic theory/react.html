@@ -3,27 +3,125 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    function App() {
-      const [count, setCount] = React.useState(0);
+    function TimeConverter() {
+      const [time, setTime] = React.useState(0);
+      const [fliped, setFliped] = React.useState(false);
 
-      const click = () => {
-        setCount((asdasd) => asdasd + 1);
+      const onChange = (event) => {
+        setTime(event.target.value);
+      };
+      const reset = () => setTime(0);
+      const flip = () => {
+        reset();
+        setFliped((flip) => !flip);
       };
 
       return (
         <div>
-          <h3>클릭 수 : {count}</h3>
-          <button onClick={click}>Click!</button>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={fliped ? time * 60 : time}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={fliped}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={fliped ? time : time / 60}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={!fliped}
+            />
+          </div>
+
+          <button onClick={reset}>초기화</button>
+          <button onClick={flip}>전환</button>
+        </div>
+      );
+    }
+    function DistanceConverter() {
+      const [distance, setDistance] = React.useState(0);
+      const [fliped, setFliped] = React.useState(false);
+
+      const onChange = (event) => {
+        setDistance(event.target.value);
+      };
+
+      const reset = () => setDistance(0);
+
+      const flip = () => {
+        reset();
+        setFliped((value) => !fliped);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="km">Km</label>
+            <input
+              value={fliped ? distance * 1.609 : distance}
+              id="km"
+              placeholder="Km"
+              type="number"
+              onChange={onChange}
+              disabled={fliped}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="mile">Mile</label>
+            <input
+              value={fliped ? distance : distance / 1.609}
+              id="mile"
+              placeholder="Mile"
+              type="number"
+              onChange={onChange}
+              disabled={!fliped}
+            />
+          </div>
+
+          <button onClick={reset}>초기화</button>
+          <button onClick={flip}>전환</button>
         </div>
       );
     }
 
-    const root = document.getElementById("root");
-    ReactDOM.render(<App />, root);
+    function App() {
+      const [index, setIndex] = React.useState("0");
+      // 디폴트(기본) 값으로 number 0이 아닌 string 0 을 넣어줌.
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1>단위변환기</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Mile</option>
+          </select>
+          <hr />
+          {index === "0" ? <TimeConverter /> : null}
+          {index === "1" ? <DistanceConverter /> : null}
+          {/* {}중괄호 안에는 JS코드를 넣을 수 있음 */}
+          {/* index value에 따라서 UI가 변함 */}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
   </script>
 </html>
