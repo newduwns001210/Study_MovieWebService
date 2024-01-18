@@ -571,3 +571,53 @@ content
 <br>
 
 # 7. Props
+
+- 일종의 방식
+- 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법 (부모 컴포넌트 data -> 자식 컴포넌트)
+
+**사용 방식 & 코드**
+
+- props는 객체
+- props.property는 그냥 {property}처럼 사용할수 있다
+
+<br>
+
+```
+<script type="text/babel">
+    function Btn({ text, big }) {
+      // props는 유일한 argument이자 object
+      // App(부모 컴포넌트)에서 보낸 정보를 가지고있음 => props
+      // {}중괄호 안에 받고 싶은 property를 적으면 argument를 굳이 적지 않아도 됨
+      console.log(text);
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: big ? 18 : 16,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+    // {props.asdf} => 부모 컴포넌트에서 받은 asdf라는 property를 받아서 text를 변경함
+    // argument에 따라 편하게 변경 가능함
+    // prop 기반으로 style 안에서 조건문(if else)를 사용할 수도 있음
+
+    function App() {
+      return (
+        <div>
+          <Btn text="Save Changes" big={true} />
+          <Btn text="Continue" big={false} />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+```
