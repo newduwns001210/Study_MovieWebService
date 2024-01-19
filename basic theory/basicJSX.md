@@ -621,3 +621,81 @@ content
     root.render(<App />);
   </script>
 ```
+
+<br>
+
+**React.memo() 사용 방법 & 사용 이유**
+
+- 부모 컴포넌트의 changeValue={changeValue}는 html의 button 태그를 위한 이벤트리스너가 아님
+
+  > 부모 컴포넌트에 어떤 무엇을 넣든간에 단지 prop이기에 적용이 되진 않음  
+  > 부모 컨포넌트의 prop을 사용하기 위해선 자식 컴포넌트의 argument에 추가해 주어야 함
+
+- 컴포넌트가 상태(state)를 바꾸면 컴포넌트 자체가 리렌더링 한다.
+
+  > 하지만, 두번째 Btn은 상태가 바뀌지 않았다.  
+  > 고로, 다시 리렌더링(다시 그릴 필요)가 없으니 React Memo를 사용할 것임
+
+- React.memo(컴포넌트)를 사용하면 상태(state)가 변경된 컴포넌트만 리렌더링 된다.
+
+  > 한마디로 특정 컴포넌트의 props가 변경되지 않는다면 다시 그릴(리렌더링) 할 필요가 없다는 것을 알려준 것임  
+  > 이걸 하는 하는 이유는 실무에서 리렌더링 되는 컴포넌트가 많아질수록 속도가 느려짐
+
+  <br>
+
+```
+<script type="text/babel">
+    function Btn({ text, changeValue }) {
+      console.log(text);
+      return (
+        <button
+          onClick={changeValue}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+
+    const MemorizedBtn = React.memo(Btn);
+
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("변경");
+      return (
+        <div>
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          <MemorizedBtn text="Continue" />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+```
+
+<br>
+
+**Prop Type**
+
+- https://unpkg.com/prop-types@15.7.2/prop-types.js 는 prop이 어떤 type을 받고 있는지 체크해줌
+
+<br>
+
+- props들의 type이 설정한 것과 맞지 않으면 콘솔창에 오류메세지가 뜸
+- 필수적인 prop과 그에 맞는 propType을 갖고 있는지 확인하려면 .isRequired를 붙이면 됨
+- argument에 fontSize가 아닌 fontSize=18 이런 식으로 넣으며 default 값을 설정할 수 있음 하지만 부모 컴포넌트에서 이미 prop으로 지정해 놓은 fontSize는 그대로 적용되고 fontSize라는 prop이 없는 컴포넌트에만 default값으로 설정됨
+
+```
+Btn.propTypes = {
+      text: PropTypes.string,
+      fontSize: PropTypes.number.isRequired,
+    };
+```
