@@ -9,7 +9,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    function Btn({ text, fontSize }) {
+    function Btn({ text, fontSize = 14 }) {
       return (
         <button
           style={{
@@ -28,13 +28,14 @@
 
     Btn.propTypes = {
       text: PropTypes.string,
-      fontSize: PropTypes.number,
+      fontSize: PropTypes.number.isRequired,
     };
 
     function App() {
       return (
         <div>
-          <Btn text="Save Changes" />
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text="Button" />
         </div>
       );
     }
