@@ -707,6 +707,75 @@ Btn.propTypes = {
 
 - state가 변화가 있을 때 모든 코드(컴포넌트)들이 다시 실행(리렌더링)되는데 이 과정이 불필요하거나 오류를 일으킬 수 있음.
 - 특정 코드의 실행을 1번으로 제한하고 싶다는 것
-- useEffect(first.argument, second.argument)
-  > 첫번째 argument => 딱 한번만 실행시키고 싶은 코드(구문, 함수 등)
-  > 두번째 argument => 코드를 실행하고 싶은 변화의 기준을 넣어줌.(state => dependencies(대상) => react가 지켜봐야 할 것들)
+
+**useEffect(first.argument, second.argument)**
+
+- 첫번째 argument => 딱 한번만 실행시키고 싶은 코드(구문, 함수 등)
+- 두번째 argument => 코드를 실행하고 싶은 변화의 기준을 넣어줌.(state => dependencies(대상) => react가 지켜봐야 할 것들)
+
+<br>
+
+**사용 예시 코드**
+
+```
+import { useState, useEffect } from "react";
+
+function App() {
+  const [counter, setCounter] = useState(0);
+  const [keyword, setKeyword] = useState("");
+
+  const onClick = () => setCounter((prev) => prev + 1);
+  const onChange = (event) => setKeyword(event.target.value);
+
+  useEffect(() => {
+    console.log("한번만 실헹됩니다.");
+  }, []);
+
+  useEffect(() => {
+    if (counter >= 1) {
+      console.log(counter, "번 클릭되었습니다.");
+    }
+  }, [counter]);
+
+  useEffect(() => {
+    if (keyword !== "" && keyword.length > 3) {
+      console.log(keyword, "을(를) 검색합니다.");
+    }
+  }, [keyword]);
+
+  useEffect(() => {
+    console.log("keyword & counter가 작동합니다");
+  }, [keyword, counter]);
+
+  return (
+    <div>
+      <input
+        value={keyword}
+        onChange={onChange}
+        type="text"
+        placeholder="검색어를 입력하세요."
+      />
+      <h1>{counter}</h1>
+      <button onClick={onClick}>click!</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+<br>
+
+**CleanUp function**
+
+- 많이 사용되진 않음
+- 짧게 말해 요런 식
+- return () => console.log("제거"); 이게 중요한거임
+
+```
+function Hello() {
+  useEffect(() => {
+    console.log("생성");
+    return () => console.log("제거");
+  }, []);
+```
