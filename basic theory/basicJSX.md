@@ -699,3 +699,14 @@ Btn.propTypes = {
       fontSize: PropTypes.number.isRequired,
     };
 ```
+
+<br>
+<br>
+
+# 8. Effect
+
+- state가 변화가 있을 때 모든 코드(컴포넌트)들이 다시 실행(리렌더링)되는데 이 과정이 불필요하거나 오류를 일으킬 수 있음.
+- 특정 코드의 실행을 1번으로 제한하고 싶다는 것
+- useEffect(first.argument, second.argument)
+  > 첫번째 argument => 딱 한번만 실행시키고 싶은 코드(구문, 함수 등)
+  > 두번째 argument => 코드를 실행하고 싶은 변화의 기준을 넣어줌.(state => dependencies(대상) => react가 지켜봐야 할 것들)
