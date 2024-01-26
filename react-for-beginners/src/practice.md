@@ -49,3 +49,66 @@ function App() {
 
 export default App;
 ```
+
+<br>
+<br>
+
+**Coin Tracker**
+
+- useEffect에 API를 fatch하여 data를 받고 .then을 사용하여 받은 data로 State를 수정함
+- loading이 true일 땐 loading 메세지가 뜨지만 loding이 성공한 이후에 나오는 select 구문을 {loading ? (로딩 되는 중 문구) : (로딩 성공 후 함수/문구)}
+- title의 삼항연산자에 백틱과 $가 들어간 이유는 문자열 내부에 변수를 포함시키기 위해서
+
+```
+import { useState, useEffect } from "react";
+
+function App() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [money, setMoney] = useState("");
+
+  const onChange = (event) => setMoney(event.target.value);
+
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        setData(json);
+        setLoading(!loading);
+        console.log(json);
+      });
+  }, []);
+  // 아무것도 주시하고 있지 않으면(빈 배열) useEffect 코드는 한번만 실행됨
+  return (
+    <div>
+      <h1>The Coins! {loading ? null : `(${data.length})`}</h1>
+      <input
+        value={money}
+        onChange={onChange}
+        type="number"
+        placeholder="가격을 입력하세요. (USD)"
+      />
+      {loading ? (
+        <strong>Loading...</strong>
+      ) : (
+        <select>
+          {data.map((data) => (
+            <option>
+              {data.name} ({data.symbol}) :{money / data.quotes.USD.price}{" "}
+              {data.symbol}
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
+```
+
+<br>
+<br>
+
+**Movie App**
