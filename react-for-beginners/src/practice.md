@@ -112,3 +112,7 @@ export default App;
 <br>
 
 **Movie App**
+
+- Array.map((아무거나) => 코드)는 Array의 모든 element들에게 코드를 적용시킴 (Array에게 적용시키는 함수 map())
+- async-await 구문을 사용하여 .then 구문의 단점을 보완하고 사용하지 않음. => 편리함
+- <li>구문에 key를 추가하여 고유값을 설정함
