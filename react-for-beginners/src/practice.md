@@ -113,6 +113,10 @@ export default App;
 
 # Movie App
 
+- App.js : Routing하는 컴포넌트
+- Home.js : Home 화면을 구현하는 코드를 가진 컴포넌트
+- Movie.js : 부모 컴포넌트인 Home.js에서 prop을 받아 map을 구현해주는 자식 컴포넌트
+
 - Array.map((아무거나) => 코드)는 Array의 모든 element들에게 코드를 적용시킴 (Array에게 적용시키는 함수 map())
 
 - async-await 구문을 사용하여 .then 구문의 단점을 보완하고 사용하지 않음. => 편리함
