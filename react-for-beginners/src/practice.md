@@ -1,4 +1,4 @@
-**ToDo List**
+# ToDo List
 
 ```
 import { useState, useEffect } from "react";
@@ -53,7 +53,7 @@ export default App;
 <br>
 <br>
 
-**Coin Tracker**
+# Coin Tracker
 
 - useEffect에 API를 fatch하여 data를 받고 .then을 사용하여 받은 data로 State를 수정함
 - loading이 true일 땐 loading 메세지가 뜨지만 loding이 성공한 이후에 나오는 select 구문을 {loading ? (로딩 되는 중 문구) : (로딩 성공 후 함수/문구)}
@@ -111,8 +111,21 @@ export default App;
 <br>
 <br>
 
-**Movie App**
+# Movie App
 
 - Array.map((아무거나) => 코드)는 Array의 모든 element들에게 코드를 적용시킴 (Array에게 적용시키는 함수 map())
+
 - async-await 구문을 사용하여 .then 구문의 단점을 보완하고 사용하지 않음. => 편리함
+
 - <li>구문에 key를 추가하여 고유값을 설정함
+
+- Movie라는 자식 컴포넌트를 생성하여 부모 컴포넌트(movieWeb.js)로 부터 props의 정보를 받아옴
+
+  > 부모 컴포넌트에서 보내주는 props는 내가 임의로 properties name을 명명할 수 있음 하지만, 무조건 데이터를 받아오는 코드는 똑같이 작성해줘야 함
+
+<br>
+
+**Router**
+
+- 설치방법 : 터미널 열고 폴더에 들어가서 npm install react-router-dom
+- 페이지 전환

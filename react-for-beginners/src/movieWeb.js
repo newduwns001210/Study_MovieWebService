@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Movie from "./Movie.js";
 
 function MovieWeb() {
   const [loading, setLoading] = useState(true);
@@ -7,7 +8,7 @@ function MovieWeb() {
   const getData = async () => {
     const json = await (
       await fetch(
-        "https://yts.mx/api/v2/list_movies.json?minimum_rating=9.5&sort_by=year"
+        "https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year"
       )
     ).json();
     setData(json.data.movies);
@@ -29,16 +30,13 @@ function MovieWeb() {
       ) : (
         <div>
           {data.map((data) => (
-            <div key={data.id}>
-              <img src={data.medium_cover_image} />
-              <h2>{data.title}</h2>
-              <p>{data.summary}</p>
-              <ul>
-                {data.genres.map((exam) => (
-                  <li key={exam}>{exam}</li>
-                ))}
-              </ul>
-            </div>
+            <Movie
+              key={data.id}
+              coverImg={data.medium_cover_image}
+              title={data.title}
+              summary={data.summary}
+              genres={data.genres}
+            />
           ))}
         </div>
       )}
