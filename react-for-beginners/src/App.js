@@ -1,19 +1,15 @@
 import Home from "./routes/Home";
 import Detail from "./routes/Detail";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // 이 구문을 import 해줘야함
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/movie">
-          <Detail />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/movie" element={<Detail />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
       {/* Switch가 하는 일은 Route를 찾는 것 */}
       {/* Router -> Switch -> Route 순으로 감. 그리고 path="/
       을 해줌으로써 url에 "/"가 있다면 Home 컴포넌트를 가져와
