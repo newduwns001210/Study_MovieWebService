@@ -133,4 +133,4 @@ export default App;
 
 - 설치방법 : 터미널 열고 폴더에 들어가서 npm install react-router-dom
 - 페이지 전환
-- html 상의 코드에 a href로 하지 않는 이유는 a href 태그는 페이지를 재실행시키는 반면, Router는 페이지를 재실행 시키지 않음. (단, Link를 썼을 경우에만)
+- html 상의 코드에 a href로 하지 않는 이유는 a href 태그는 페이지를 재실행시키는 반면, Router는 페이지를 재실행 시키지 않음. (단, Link를 썼을 경우에만 -> 재실행 되는 걸 막아주는 컴포넌트)

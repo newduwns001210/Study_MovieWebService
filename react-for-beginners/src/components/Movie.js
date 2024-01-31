@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function Movie({ coverImg, title, summary, genres }) {
   //Movie 컴포넌트가 부모 컴포넌트로부터 props들의 정보를 받아온다는 의미
   return (
     <div>
+      <h2>
+        <Link to="/movie">{title}</Link>
+      </h2>
       <img src={coverImg} alt={title} />
-      <h2>{title}</h2>
       <p>{summary}</p>
       <ul>
         {genres.map((exam) => (
