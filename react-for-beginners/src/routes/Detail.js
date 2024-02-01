@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 // URL에 있는 값을 반화내주는 함수
 
@@ -35,6 +34,9 @@ function Detail({}) {
               <ul>
                 <li>{data.genres}</li>
               </ul>
+              <button>
+                <Link to="/">홈으로</Link>
+              </button>
             </div>
           ))}
         </div>
